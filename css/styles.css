@@ -1,0 +1,123 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    font-size: 42px;
+}
+
+/* botões */
+#buttons-container {
+    margin-bottom: 20px;
+}
+
+/* o botão (button) que está dentro da div que tem o id=#buttons-container, terá as configurações abaixo */
+#buttons-container button {
+    border: none;     
+    padding: 10px 15px; /* centraliza a mensagem do botão em 10 px na vertical, e em 15 px na horizontal */
+    margin: 0 10px; /* afasta um botão do outro com 10px */
+}
+
+/* jogo */
+#container {
+    width: 300px; /* garante 100px de largura por coluna. E como estão definidas 3 divs por linha com o 33% (abaixo), temos 3 colunas */
+    display: flex;
+    margin: 0; /* tira as margens desta div */
+    flex-direction: row; /*garante que as 3 primeiras divs fiquem na mesma linha */
+    flex-wrap: wrap; /* vai começar a jogar para baixo. Ou seja, sem esta linha temos 9 quadradinhos na mesma linha. E com esta linha, temos 3 quadradinhos por linha */
+    position: relative; /* precisamos de position+margin left+margin right para centralizar o jogo */
+    margin-left: auto;
+    margin-right: auto;
+}
+.box {
+    height: 100px;
+    border: 5px solid rgb(7, 7, 7); /* criou 9 quadradinhos com borda preta, sendo 3 por linha */
+    box-sizing: border-box; /* aqui digo que o box vai ter 100px de largura, não é 100px mais a borda */
+    flex: 1 1 33%; /* flex-grow=1, flex-shrink=1, o 33% garante 3 divs por linha*/
+}
+
+#block-1, #block-2, #block-3 {
+    border-top: none; /* retirei a borda de cima dos 3 primeiros blocos */
+}
+
+#block-1, #block-4, #block-7 {
+    border-left: none; /* retirei a borda da esquerda de 3 blocos */
+}
+
+#block-7, #block-8, #block-9 {
+    border-bottom: none; /* retirei a borda debaixo de 3 blocos */
+}
+
+#block-3, #block-6, #block-9 {
+    border-right: none; /* retirei a borda da direita de 3 blocos */
+}
+
+/* simbolos */
+.x  {
+    font-size: 65px;
+    color: red;
+    display: inline-block; /* para conseguir mexer como se fosse um bloco que aceita elementos na mesma linha */
+    line-height: 100px; /* para centralizar o X no quadradinho, pois .box tem height=100px */
+}
+
+.o  {
+    width: 50px; /* faz um QUADRADINHO de 50px */
+    height: 50px;
+    border: 5px solid green;
+    border-radius: 50%; /* aqui transforma o QUADRADINHO em bolinha */
+    display: inline-block; /* para conseguir mexer como se fosse um bloco que aceita elementos na mesma linha, NÃO ENTENDI */
+    margin-top: 17px; /* garante que fique centralizado no box, NÃO ENTENDI */
+}
+
+/* classe de esconder 
+.hide {
+    display: none;  tem que colocar !important para realmente esconder 
+} 
+*/
+
+#scoreboard-container {
+  font-weight: bold;
+  margin-top: 30px;
+  font-size: 25px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.score-box {
+  display: inline-block;
+  margin: 0 20px; /* afastou 20px um do outro */
+}
+
+#x-scoreboard {
+    color: red;
+    margin-right: 3px; /* para descolar daqueles 2 pontos */
+}
+
+#o-scoreboard {
+     display: inline-block; /* para conseguir mexer como se fosse um bloco que aceita elementos na mesma linha */
+    width: 18px;
+    height: 18px;
+    border: 2px solid green;
+    border-radius: 50%;
+    margin-right: 3px; 
+}
+
+
+/* msg vitoria */
+
+#message p {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 150px;
+    width: 500px;
+    font-size: 50px;
+    background-color: #000;
+    color: #FFF;
+    padding: 20px;
+    display: none;
+  }
