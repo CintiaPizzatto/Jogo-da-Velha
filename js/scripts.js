@@ -59,9 +59,9 @@ for(let i = 0; i < boxes.length; i++) {
       checkWinCondition(); // aqui vamos chamar a função que vai verificar se alguém ganhou
     }
   }
-});
+};
 
-}
+
 // vamos separar as funções para deixar o código mais limpo
 
 // vamos criar uma função para ver quem vai jogar (X ou O)
