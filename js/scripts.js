@@ -38,28 +38,26 @@ let player2 = 0;
 for(let i = 0; i < boxes.length; i++) {
   // quando há o click na caixa
   boxes[i].addEventListener("click", function() {
-  let el = checkEl(player1, player2); // aqui vamos chamar a função que vai verificar quem vai jogar (X ou O) e vai retornar o elemento que vai ser inserido na grade
-  // el será: <div class="x">X</div> ou 
-  //          <div class="o"></div>
-  // Vamos ver se este cara da iteração (this) tem algum nó filho (X ou 0),
-  // o nó filho será: <div class="x">X</div> ou <div class="o"></div> 
-  // se boxes[i] TIVER     nó filho, então o length será DIFERENTE de 0 e NÃO VAI ENTRAR aqui no if. Isso significa que o usuário JÁ CLICOU neste box em questão (this)
-  // se boxes[i] NÃO TIVER nó filho, então o length será IGUAL a 0      e VAI ENTRAR aqui no if. Isso significa que o usuário ainda NÃO CLICOU neste box em questão (this). Como o box está vazio, vamos adicionar o elemento X ou O
-  // verificando se ja tem um elemento filho (X ou O)
-  if(this.childNodes.length == 0) { // se o filho do this for igual a 0, então o filho não existe, então vamos inserir o elemento X ou O
-    let cloneEl = el.cloneNode(true);
-    console.log(el);
-    console.log("quatro"+cloneEl);
-    this.appendChild(cloneEl); // aqui eu crio uma linha no HTML. Adicionando um elemento dentro da caixa. Vamos criar um filho com o clone que foi definido na lógica acima
-    // depois deste comando this.appendChild(cloneEl) foi colocado o X (elemento el) na tela
-
-    // computar a jogada
-    if(player1 == player2) {
-      player1++; // se o player1 for igual ao player2, então o player1 vai jogar, então o player1 vai ser incrementado, e agora será colocado na tela o X
-    } else {
-      player2++; /* se o player1 for diferente do player2, então o player2 vai jogar, então o player2 vai ser incrementado, e agora será colocado na tela o O */
+    let el = checkEl(player1, player2); // aqui vamos chamar a função que vai verificar quem vai jogar (X ou O) e vai retornar o elemento que vai ser inserido na grade
+    // el será: <div class="x">X</div> ou 
+    //          <div class="o"></div>
+    // Vamos ver se este cara da iteração (this) tem algum nó filho (X ou 0),
+    // o nó filho será: <div class="x">X</div> ou <div class="o"></div> 
+    // se boxes[i] TIVER     nó filho, então o length será DIFERENTE de 0 e NÃO VAI ENTRAR aqui no if. Isso significa que o usuário JÁ CLICOU neste box em questão (this)
+    // se boxes[i] NÃO TIVER nó filho, então o length será IGUAL a 0      e VAI ENTRAR aqui no if. Isso significa que o usuário ainda NÃO CLICOU neste box em questão (this). Como o box está vazio, vamos adicionar o elemento X ou O
+    if(this.childNodes.length == 0) { // se o filho do this for igual a 0, então o filho não existe, o box está vazio, então vamos inserir o elemento X ou O
+      let cloneEl = el.cloneNode(true);
+      console.log(el);
+      this.appendChild(cloneEl); // aqui eu crio uma linha no HTML. Adicionando um elemento dentro da caixa. Vamos criar um filho com o clone que foi definido na lógica acima
+      // depois deste comando this.appendChild(cloneEl) foi colocado o X (elemento el) na tela
+      // computar a jogada
+      if(player1 == player2) {
+        player1++; // se o player1 for igual ao player2, então o player1 vai jogar, então o player1 vai ser incrementado, e agora será colocado na tela o X
+      } else {
+        player2++; /* se o player1 for diferente do player2, então o player2 vai jogar, então o player2 vai ser incrementado, e agora será colocado na tela o O */
+      }
+      checkWinCondition(); // aqui vamos chamar a função que vai verificar se alguém ganhou
     }
-    checkWinCondition(); // aqui vamos chamar a função que vai verificar se alguém ganhou
   }
 });
 
@@ -249,7 +247,11 @@ function checkWinCondition() {
 */
 function declareWinner(winner) {
   let scoreboardx = document.querySelector('#scoreboard-1');
+  console.log("só scoreboardx: " + scoreboardx);
+  console.log("scoreboardx.textContent: " + scoreboardx.textContent + "   winner: " + winner);
   let scoreboardo = document.querySelector('#scoreboard-2');
+  console.log("só scoreboardo: " + scoreboardo);
+  console.log("scoreboardo.textContent: " + scoreboardo.textContent + "   winner: " + winner);
   let msg = '';
 
   if(winner == 'x') {
