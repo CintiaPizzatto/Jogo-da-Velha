@@ -52,6 +52,11 @@ for(let i = 0; i < boxes.length; i++) {
       // depois deste comando "this.appendChild(cloneEl)" foi colocado o X (elemento el) na tela
       if(player1 == player2) {
         player1++; // se o player1 for igual ao player2, então o player1 vai jogar, então o player1 vai ser incrementado, e agora será colocado na tela o X
+        if(secondPlayer == "ai-player") { // se o jogo for single player, então o player2 vai ser a IA
+          // vamos criar uma função para a IA jogar
+          iaPlay(); // aqui eu chamo a função que vai fazer a IA jogar
+          player2++; // aqui eu incremento o player2, pois a IA vai jogar
+        }
       } else {
         player2++; /* se o player1 for diferente do player2, então o player2 vai jogar, então o player2 vai ser incrementado, e agora será colocado na tela o O */
       }
@@ -63,6 +68,7 @@ for(let i = 0; i < boxes.length; i++) {
 
 // vamos separar as funções para deixar o código mais limpo
 // evento para saber se é 2 players ou IA
+// buttons foi declarada lá em cima
 for(let i =0; i<buttons.length; i++) {
   buttons[i].addEventListener("click", function() {
     secondPlayer = this.getAttribute("id"); // aqui eu pego o id do botão que foi clicado
@@ -78,6 +84,29 @@ for(let i =0; i<buttons.length; i++) {
   });
 }
 
+function iaPlay() { 
+  let cloneO = o.cloneNode(true); // aqui eu crio o elemento O
+  let counter = 0; // contador para saber se o jogo acabou
+  let filled = 0; // contador para saber se o jogo acabou
+  for(let i = 0; i < boxes.length; i++) { // vamos percorrer todos os boxes
+    let randomNumber = Math.floor(Math.random() * 5); // aqui eu gero um número aleatório de 0 a 4
+    if(boxes[i].childNodes[0] == undefined) { // se o filho do box[i] for igual a undefined, então o filho não existe, o box está vazio
+      if(randomNumber <= 1) { // se o número aleatório for menor ou igual a 1, então vamos inserir o elemento O
+        boxes[i].appendChild(cloneO); // aqui eu crio uma linha no HTML. Adicionando um elemento dentro da caixa. Vamos criar um filho com o clone que foi definido na lógica acima
+        break; // aqui eu paro o loop, pois já inseri o elemento O
+      } else { // se o número aleatório for maior que 1, então vamos incrementar o contador
+        counter++; // aqui eu incremento o contador
+      }
+    } else { // se o filho do box[i] for diferente de undefined, então o filho existe, o box está cheio
+      filled++; // aqui eu incremento o contador
+      counter++; // aqui eu incremento o contador
+    }
+  }
+  if(counter == 9 && filled != 9) { // se o contador for igual a 9 e o contador de caixas cheias for diferente de 9, então o jogo acabou e ninguém ganhou
+    messageText.innerHTML = "Deu velha!"; // aqui eu coloco a mensagem de empate na tela
+    messageContainer.classList.remove("hide"); // aqui eu removo a classe hide da div com id=#message
+  }
+}
 
 // vamos criar uma função para ver quem vai jogar (X ou O)
 function checkEl(player1, player2) {
