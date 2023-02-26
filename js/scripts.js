@@ -83,9 +83,9 @@ for(let i =0; i<buttons.length; i++) {
       console.log(buttonsContainer );
       buttonsContainer.classList.add("hide"); 
       // aqui eu adiciono a classe hide no buttons-container
-   // }, 500);
-  });
+    }, 500);
 }
+
 
 function iaPlay() { 
   console.log("function iaPlay()" );
