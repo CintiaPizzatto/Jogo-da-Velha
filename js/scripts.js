@@ -70,21 +70,25 @@ for(let i = 0; i < boxes.length; i++) {
 // evento para saber se é 2 players ou IA
 // buttons foi declarada lá em cima
 for(let i =0; i<buttons.length; i++) {
+  console.log("esperando clique no button" );
   buttons[i].addEventListener("click", function() {
-    secondPlayer = this.getAttribute("id"); // aqui eu pego o id do botão que foi clicado
+    secondPlayer = this.getAttribute("id"); // aqui eu pego o id do botão que foi clicado. Será id="2-players" ou id="ai-players"
     for(let j = 0; j < buttons.length; j++) {
       buttons[j].style.display = "none"; // aqui eu escondo os botões
     }
-    setTimeout(function() {
+  //  setTimeout(function() {
       let container = document.querySelector("#container");
-      container.classList.remove("hide"); // aqui eu removo a classe hide do container
+      container.classList.remove("hide"); // aqui eu removo a classe hide do container e aparece a grade do jogo
       let buttonsContainer = document.querySelector("#buttons-container");
-      buttonsContainer.classList.add("hide"); // aqui eu adiciono a classe hide no buttons-container
-    }, 500);
+      console.log(buttonsContainer );
+      buttonsContainer.classList.add("hide"); 
+      // aqui eu adiciono a classe hide no buttons-container
+   // }, 500);
   });
 }
 
 function iaPlay() { 
+  console.log("function iaPlay()" );
   let cloneO = o.cloneNode(true); // aqui eu crio o elemento O
   let counter = 0; // contador para saber se o jogo acabou
   let filled = 0; // contador para saber se o jogo acabou
@@ -110,6 +114,7 @@ function iaPlay() {
 
 // vamos criar uma função para ver quem vai jogar (X ou O)
 function checkEl(player1, player2) {
+  console.log("function ckeckE1" );
   if(player1 == player2) {
     el = x; 
   } else {
@@ -126,6 +131,7 @@ function checkEl(player1, player2) {
 // vamos criar uma função para reiniciar o jogo
 // vamos criar uma função para checar se o jogo acabou
 function checkWinCondition() {
+  console.log("function ckeckWinCondition" );
   // vamos pegar o que foi digitado no input de cada bloco
   let b1 = document.getElementById('block-1'); //pode usar o querySelector também
   let b2 = document.getElementById('block-2');
@@ -290,6 +296,7 @@ function checkWinCondition() {
   vamos criar uma função para declarar o vencedor
 */
 function declareWinner(winner) {
+  console.log("function declareWinner" );
   let scoreboardx = document.querySelector('#scoreboard-1');
   let scoreboardo = document.querySelector('#scoreboard-2');
   let msg = '';
