@@ -37,8 +37,8 @@ el = x; este é o elemento que vamos usar para ser inserido na grade
 adicionando o evento de click a todos as caixas */
 console.log("antes do for" );
 for(let i = 0; i < boxes.length; i++) {
-  // quando há o click na caixa
   console.log("i = " + i);
+  // quando há o click na caixa, executa a function
   boxes[i].addEventListener("click", function() {
     let el = checkEl(player1, player2); /* aqui vamos chamar a função que vai verificar quem vai jogar (X ou O) e vai retornar o elemento que vai ser inserido na grade
     el será: <div class="x">X</div> ou <div class="o"></div>
@@ -76,15 +76,11 @@ for(let i =0; i<buttons.length; i++) {
     for(let j = 0; j < buttons.length; j++) {
       buttons[j].style.display = "none"; // aqui eu escondo os botões
     }
-  //  setTimeout(function() {
+    setTimeout(function() {
       let container = document.querySelector("#container");
       container.classList.remove("hide"); // aqui eu removo a classe hide do container e aparece a grade do jogo
-      let buttonsContainer = document.querySelector("#buttons-container");
-      console.log(buttonsContainer );
-      buttonsContainer.classList.add("hide"); 
-      // aqui eu adiciono a classe hide no buttons-container
     }, 500);
-}
+});
 
 
 function iaPlay() { 
@@ -336,3 +332,37 @@ function declareWinner(winner) {
     boxesToRemove[i].parentNode.removeChild(boxesToRemove[i]); /* aqui vai remover o X ou O do box */
   }
 }
+
+// jogada IA 
+function iaPlay() { 
+  console.log("function iaPlay" );
+  console.log("player1: " + player1);
+  console.log("player2: " + player2);
+  let cloneO = o.cloneNode(true);
+  counter = 0;
+  filled = 0;
+          
+  for(let i = 0; i < boxes.length; i++) {
+    console.log("boxes[i].childNodes[0]: " + boxes[i].childNodes[0]);
+    let randomNumber = Math.floor(Math.random() * 5);
+    // só se não tiver marcado anteriormente
+    if(boxes[i].childNodes[0] == undefined) {  
+      console.log("randomNumber: " + randomNumber);
+      console.log("boxes[i]: " + boxes[i]);
+      console.log("boxes[i].childNodes[0]: " + boxes[i].childNodes[0]);
+      console.log("boxes[i].childNodes[0].className: " + boxes[i].childNodes[0].className);
+      if(randomNumber <= 1) {
+        boxes[i].appendChild(cloneO);
+        counter++;
+        break;
+      }
+    // checar quantas estão preenchidas        
+    } else {
+      filled++;
+    }
+  }
+
+  if(counter == 0 && filled < 9) {
+    computerPlay();
+  }
+}}
