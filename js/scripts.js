@@ -50,10 +50,13 @@ for(let i = 0; i < boxes.length; i++) {
       let cloneEl = el.cloneNode(true);
       this.appendChild(cloneEl); // aqui eu crio uma linha no HTML. Adicionando um elemento dentro da caixa. Vamos criar um filho com o clone que foi definido na lógica acima
       // depois deste comando "this.appendChild(cloneEl)" foi colocado o X (elemento el) na tela
+
+      console.log("secondPlayer = " + secondPlayer);
       if(player1 == player2) {
         player1++; // se o player1 for igual ao player2, então o player1 vai jogar, então o player1 vai ser incrementado, e agora será colocado na tela o X
         if(secondPlayer == "ai-player") { // se o jogo for single player, então o player2 vai ser a IA
           // vamos criar uma função para a IA jogar
+          console.log("chamar iaPlay" );
           iaPlay(); // aqui eu chamo a função que vai fazer a IA jogar
           player2++; // aqui eu incremento o player2, pois a IA vai jogar
         }
