@@ -52,6 +52,8 @@ for(let i = 0; i < boxes.length; i++) {
       // depois deste comando "this.appendChild(cloneEl)" foi colocado o X (elemento el) na tela
 
       console.log("secondPlayer = " + secondPlayer);
+      console.log("player1 = " + player1);
+      console.log("player2 = " + player2);
       if(player1 == player2) {
         player1++; // se o player1 for igual ao player2, então o player1 vai jogar, então o player1 vai ser incrementado, e agora será colocado na tela o X
         if(secondPlayer == "ai-player") { // se o jogo for single player, então o player2 vai ser a IA
@@ -347,13 +349,19 @@ function iaPlay() {
           
   for(let i = 0; i < boxes.length; i++) {
     console.log("boxes[i].childNodes[0]: " + boxes[i].childNodes[0]);
+    let inicialRandomNumber = Math.random();
+    console.log("inicialRandomNumber: " + inicialRandomNumber);
+    let RandomComMathfloor = Math.floor(Math.random());
+    console.log("RandomComMathfloor: " + RandomComMathfloor);
+
     let randomNumber = Math.floor(Math.random() * 5);
     // só se não tiver marcado anteriormente
+    console.log("i: " + i + " - " + boxes[i]);
+    console.log("randomNumber * 5: " + randomNumber);
+    console.log("boxes[i]: " + boxes[i]);
+    console.log("boxes[i].childNodes[0]: " + boxes[i].childNodes[0]);
     if(boxes[i].childNodes[0] == undefined) {  
-      console.log("randomNumber: " + randomNumber);
-      console.log("boxes[i]: " + boxes[i]);
-      console.log("boxes[i].childNodes[0]: " + boxes[i].childNodes[0]);
-      console.log("boxes[i].childNodes[0].className: " + boxes[i].childNodes[0].className);
+    
       if(randomNumber <= 1) {
         boxes[i].appendChild(cloneO);
         counter++;
@@ -366,6 +374,6 @@ function iaPlay() {
   }
 
   if(counter == 0 && filled < 9) {
-    computerPlay();
+    iaPlay();
   }
 }}
