@@ -37,7 +37,6 @@ el = x; este é o elemento que vamos usar para ser inserido na grade
 adicionando o evento de click a todos as caixas */
 console.log("antes do for" );
 for(let i = 0; i < boxes.length; i++) {
-  console.log("i = " + i);
   // quando há o click na caixa, executa a function
   boxes[i].addEventListener("click", function() {
     let el = checkEl(player1, player2); /* aqui vamos chamar a função que vai verificar quem vai jogar (X ou O) e vai retornar o elemento que vai ser inserido na grade
@@ -51,14 +50,10 @@ for(let i = 0; i < boxes.length; i++) {
       this.appendChild(cloneEl); // aqui eu crio uma linha no HTML. Adicionando um elemento dentro da caixa. Vamos criar um filho com o clone que foi definido na lógica acima
       // depois deste comando "this.appendChild(cloneEl)" foi colocado o X (elemento el) na tela
 
-      console.log("secondPlayer = " + secondPlayer);
-      console.log("player1 = " + player1);
-      console.log("player2 = " + player2);
       if(player1 == player2) {
         player1++; // se o player1 for igual ao player2, então o player1 vai jogar, então o player1 vai ser incrementado, e agora será colocado na tela o X
         if(secondPlayer == "ai-player") { // se o jogo for single player, então o player2 vai ser a IA
           // vamos criar uma função para a IA jogar
-          console.log("chamar iaPlay" );
           iaPlay(); // aqui eu chamo a função que vai fazer a IA jogar
           player2++; // aqui eu incremento o player2, pois a IA vai jogar
         }
@@ -68,14 +63,12 @@ for(let i = 0; i < boxes.length; i++) {
       checkWinCondition(); // sempre que insere um "el" na tela, chamamos a função que vai verificar se alguém ganhou
     }
   });
-  console.log("dentro do for" );
 }
 
 // vamos separar as funções para deixar o código mais limpo
 // evento para saber se é 2 players ou IA
 // buttons foi declarada lá em cima
 for(let i =0; i<buttons.length; i++) {
-  console.log("esperando clique no button" );
   buttons[i].addEventListener("click", function() {
     secondPlayer = this.getAttribute("id"); // aqui eu pego o id do botão que foi clicado. Será id="2-players" ou id="ai-players"
     for(let j = 0; j < buttons.length; j++) {
@@ -89,9 +82,8 @@ for(let i =0; i<buttons.length; i++) {
 
 
 function iaPlay() { 
-  console.log("function iaPlay()" );
   let cloneO = o.cloneNode(true); // aqui eu crio o elemento O
-  let counter = 0; // contador para saber se o jogo acabou
+  let counterAllBoxesFilled = 0; // contador para saber se o jogo acabou
   let filled = 0; // contador para saber se o jogo acabou
   for(let i = 0; i < boxes.length; i++) { // vamos percorrer todos os boxes
     let randomNumber = Math.floor(Math.random() * 5); // aqui eu gero um número aleatório de 0 a 4
@@ -100,14 +92,14 @@ function iaPlay() {
         boxes[i].appendChild(cloneO); // aqui eu crio uma linha no HTML. Adicionando um elemento dentro da caixa. Vamos criar um filho com o clone que foi definido na lógica acima
         break; // aqui eu paro o loop, pois já inseri o elemento O
       } else { // se o número aleatório for maior que 1, então vamos incrementar o contador
-        counter++; // aqui eu incremento o contador
+        counterAllBoxesFilled++; // aqui eu incremento o contador
       }
     } else { // se o filho do box[i] for diferente de undefined, então o filho existe, o box está cheio
       filled++; // aqui eu incremento o contador
-      counter++; // aqui eu incremento o contador
+      counterAllBoxesFilled++; // aqui eu incremento o contador
     }
   }
-  if(counter == 9 && filled != 9) { // se o contador for igual a 9 e o contador de caixas cheias for diferente de 9, então o jogo acabou e ninguém ganhou
+  if(counterAllBoxesFilled == 9 && filled != 9) { // se o contador for igual a 9 e o contador de caixas cheias for diferente de 9, então o jogo acabou e ninguém ganhou
     messageText.innerHTML = "Deu velha!"; // aqui eu coloco a mensagem de empate na tela
     messageContainer.classList.remove("hide"); // aqui eu removo a classe hide da div com id=#message
   }
@@ -115,7 +107,6 @@ function iaPlay() {
 
 // vamos criar uma função para ver quem vai jogar (X ou O)
 function checkEl(player1, player2) {
-  console.log("function ckeckE1" );
   if(player1 == player2) {
     el = x; 
   } else {
@@ -132,7 +123,6 @@ function checkEl(player1, player2) {
 // vamos criar uma função para reiniciar o jogo
 // vamos criar uma função para checar se o jogo acabou
 function checkWinCondition() {
-  console.log("function ckeckWinCondition" );
   // vamos pegar o que foi digitado no input de cada bloco
   let b1 = document.getElementById('block-1'); //pode usar o querySelector também
   let b2 = document.getElementById('block-2');
@@ -259,16 +249,16 @@ function checkWinCondition() {
 
 
   // se o código chegou aqui é porque nenhum jogador venceu, então é velha
-  console.log('testando se deu velha');
-  let counter = 0;
+  let counterAllBoxesFilled = 0;
   // contador para saber quantas caixas estão preenchidas
+  // Neste FOR, são testados todos os boxes para definir quantos boxes estão preenchidos
   for(let i = 0; i < boxes.length; i++) {
     if(boxes[i].childNodes[0] != undefined) {
-  // ou seja, se a caixa tiver um filho, ou seja, se tiver uma linha de código abaixo dela
-      counter++;
+      // se a caixa tiver um filho (uma linha de código abaixo dela), então ela está preenchida
+      counterAllBoxesFilled++;
     } 
   }
-  if(counter == 9) {  
+  if(counterAllBoxesFilled == 9) {  
     // se o contador for igual a 9, então todas as caixas estão preenchidas, mas ninguém venceu, senão o código não teria chegado aqui
     declareWinner('Deu velha');
   }
@@ -297,7 +287,6 @@ function checkWinCondition() {
   vamos criar uma função para declarar o vencedor
 */
 function declareWinner(winner) {
-  console.log("function declareWinner" );
   let scoreboardx = document.querySelector('#scoreboard-1');
   let scoreboardo = document.querySelector('#scoreboard-2');
   let msg = '';
@@ -340,31 +329,17 @@ function declareWinner(winner) {
 
 // jogada IA 
 function iaPlay() { 
-  console.log("function iaPlay" );
-  console.log("player1: " + player1);
-  console.log("player2: " + player2);
   let cloneO = o.cloneNode(true);
-  counter = 0;
+  counterAllBoxesFilled = 0;
   filled = 0;
           
   for(let i = 0; i < boxes.length; i++) {
-    console.log("boxes[i].childNodes[0]: " + boxes[i].childNodes[0]);
-    let inicialRandomNumber = Math.random();
-    console.log("inicialRandomNumber: " + inicialRandomNumber);
-    let RandomComMathfloor = Math.floor(Math.random());
-    console.log("RandomComMathfloor: " + RandomComMathfloor);
-
     let randomNumber = Math.floor(Math.random() * 5);
     // só se não tiver marcado anteriormente
-    console.log("i: " + i + " - " + boxes[i]);
-    console.log("randomNumber * 5: " + randomNumber);
-    console.log("boxes[i]: " + boxes[i]);
-    console.log("boxes[i].childNodes[0]: " + boxes[i].childNodes[0]);
     if(boxes[i].childNodes[0] == undefined) {  
-    
       if(randomNumber <= 1) {
         boxes[i].appendChild(cloneO);
-        counter++;
+        counterAllBoxesFilled++;
         break;
       }
     // checar quantas estão preenchidas        
@@ -372,8 +347,9 @@ function iaPlay() {
       filled++;
     }
   }
-
-  if(counter == 0 && filled < 9) {
+// se não tiver nenhum vencedor, e se não tiver nenhuma caixa vazia, então é velha
+// se o counterAllBoxesFilled for igual a 0, então nenhuma caixa foi preenchida, então é a vez da IA
+  if(counterAllBoxesFilled == 0 && filled < 9) {
     iaPlay();
   }
 }}
